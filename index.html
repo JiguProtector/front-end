@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>WINDO Map</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- 필터 -->
+<div id="filter"></div>
+
+<!-- 지도 -->
+<div id="map"></div>
+
+<!-- 상세 패널 -->
+<div id="detail">
+  <h3>도로 상세 정보</h3>
+  <div id="detail-content">지도를 클릭하세요</div>
+</div>
+
+<!-- JS 연결 (순서 중요) -->
+<script src="js/api.js"></script>
+<script src="js/map.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/detail.js"></script>
+<script src="js/energy.js"></script>
+
+</body>
+</html>

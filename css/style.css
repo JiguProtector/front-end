@@ -1,0 +1,30 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+#map {
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+
+#detail {
+  width: 30%;
+  height: 100%;
+  float: right;
+  padding: 12px;
+  border-left: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+#filter {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  padding: 8px;
+  z-index: 1000;
+  border-radius: 6px;
+}
