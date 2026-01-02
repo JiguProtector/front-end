@@ -1,30 +1,184 @@
+/* css/style.css */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
 html, body {
   margin: 0;
   height: 100%;
-  font-family: sans-serif;
+  font-family: 'Pretendard', sans-serif;
+  overflow: hidden;
+  background-color: #f8f9fa;
 }
 
+/* 지도 영역 */
 #map {
   width: 70%;
   height: 100%;
   float: left;
+  z-index: 1;
 }
 
+/* 오른쪽 사이드바 (상세 정보) */
 #detail {
   width: 30%;
   height: 100%;
   float: right;
-  padding: 12px;
-  border-left: 1px solid #ddd;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.05);
   box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 2;
+  position: relative;
 }
 
+#detail h3 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #1e293b;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 10px;
+}
+
+/* 필터 패널 (카드 형태) */
 #filter {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: white;
-  padding: 8px;
+  top: 20px;
+  left: 60px; /* 줌 컨트롤 옆 */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  padding: 16px;
   z-index: 1000;
-  border-radius: 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 120px;
 }
+
+#filter label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #334155;
+  transition: transform 0.2s;
+}
+
+#filter label:hover {
+  transform: translateX(3px);
+  color: #0f172a;
+}
+
+#filter input[type="checkbox"] {
+  accent-color: #2563eb;
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+}
+
+/* 4. 로딩 애니메이션 (초록색 점선 루프) */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 4px dotted #16a34a; /* 초록색 점선 */
+  margin: 0 auto 15px auto;
+  animation: spin 3s linear infinite; /* 천천히 회전 */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+/* Top 10 버튼 */
+#top10-btn {
+  position: absolute;
+  top: 20px;
+  right: 32%; /* 사이드바 옆 */
+  z-index: 1000;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+#top10-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* 토스트 메시지 (알림창 대체) */
+#toast-container {
+  position: absolute;
+  bottom: 30px;
+  left: 50%; /* 지도 중앙 */
+  transform: translateX(-50%);
+  z-index: 2000;
+  pointer-events: none; /* 클릭 통과 */
+}
+
+.toast {
+  background: rgba(30, 41, 59, 0.9);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeUp 0.3s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 에너지 컨트롤 패널 스타일 */
+.energy-control {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #cbd5e1;
+}
+.stat-row:last-child { border-bottom: none; }
+
+/* 스크롤바 꾸미기 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ... 기존 CSS ... */
+
+/* 뱃지 디자인 개선 (알약 모양, 줄바꿈 방지) */
+.grade-badge {
+  display: inline-flex;       /* 내부 텍스트 정렬을 위해 flex 사용 */
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;          /* 내부 여백을 넓혀서 시원하게 */
+  border-radius: 999px;       /* 완전한 둥근 모양 (알약) */
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: white;
+  white-space: nowrap;        /* [중요] 글자 줄바꿈 절대 금지 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* 부드러운 그림자 */
+  min-width: 80px;            /* 최소 너비 확보 */
+  letter-spacing: -0.5px;     /* 자간 조정 */
+}
+
+/* ... 기존 CSS ... */
+

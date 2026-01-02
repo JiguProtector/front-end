@@ -3,28 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <title>WINDO Map</title>
-
-  <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Top 10 버튼 스타일 추가 */
+    #top10-btn {
+      position: absolute;
+      top: 10px;
+      right: 32%; /* detail 패널 옆 */
+      z-index: 1000;
+      padding: 10px 20px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #top10-btn:hover { background: #1d4ed8; }
+    
+    /* 에너지 컨트롤 스타일 */
+    .energy-control { margin-top: 15px; padding: 10px; background: #f8fafc; border-radius: 6px; }
+    .energy-control label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+    .energy-control input, .energy-control select { width: 100%; margin-bottom: 10px; }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.9em; }
+  </style>
 </head>
 <body>
 
-<!-- 필터 -->
 <div id="filter"></div>
 
-<!-- 지도 -->
+<button id="top10-btn" onclick="loadTop10()">🏆 Top 10 도로 보기</button>
+
 <div id="map"></div>
 
-<!-- 상세 패널 -->
+<div id="toast-container"></div>  
+
 <div id="detail">
   <h3>도로 상세 정보</h3>
-  <div id="detail-content">지도를 클릭하세요</div>
+  <div id="detail-content">
+    <p style="color: #666;">지도 위의 점을 클릭하여<br/>상세 정보를 확인하세요.</p>
+  </div>
+  
+  <div id="energy-ui" style="display:none; margin-top: 20px; border-top: 2px solid #eee;">
+    <h4>⚡ 에너지 & 환경 영향</h4>
+    
+    <div class="energy-control">
+      <label>📅 계절 선택</label>
+      <select id="season-select">
+        <option value="">연간 평균 (기본)</option>
+        <option value="SPRING">봄 (Spring)</option>
+        <option value="SUMMER">여름 (Summer)</option>
+        <option value="FALL">가을 (Fall)</option>
+        <option value="WINTER">겨울 (Winter)</option>
+      </select>
+
+      <label>🏗️ 터빈 설치 수: <span id="turbine-val">1</span>기</label>
+      <input type="range" id="turbine-range" min="1" max="20" value="1" step="1" />
+    </div>
+
+    <div id="energy-result"></div>
+  </div>
 </div>
 
-<!-- JS 연결 (순서 중요) -->
 <script src="js/api.js"></script>
 <script src="js/map.js"></script>
 <script src="js/filter.js"></script>
